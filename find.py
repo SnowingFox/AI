@@ -1,5 +1,3 @@
-# 训练
-# 1 参数 2hog 3 svm 4 computer hog 5 label 6 train 7 pred 8 draw
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,7 +10,6 @@ blockStride = (8,8)#4 cell
 cellSize = (8,8)
 nBin = 9#9 bin 3780
 
-# 2 hog create hog 1 win 2 block 3 blockStride 4 cell 5 bin
 hog = cv2.HOGDescriptor(winSize,blockSize,blockStride,cellSize,nBin)
 # 3 svm
 svm = cv2.ml.SVM_create()
@@ -20,7 +17,7 @@ svm = cv2.ml.SVM_create()
 featureNum = int(((128-16)/8+1)*((64-16)/8+1)*4*9) #3780
 featureArray = np.zeros(((PosNum+NegNum),featureNum),np.float32)
 labelArray = np.zeros(((PosNum+NegNum),1),np.int32)
-# svm 监督学习 样本 标签 svm -》image hog  
+
 for i in range(0,PosNum):
     fileName = 'pos/'+str(i+1)+'.jpg'
     img = cv2.imread(fileName)
@@ -43,8 +40,6 @@ svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
 svm.setC(0.01)
 
-
-
 # 6 train
 svm.train(featureArray,cv2.ml.ROW_SAMPLE,labelArray)
 resultArray = np.zeros((1,featureNum),np.float32)
@@ -52,12 +47,8 @@ resultArray = np.zeros((1,featureNum),np.float32)
 myDetect = np.zeros((3780),np.float32)
 for i in range(0,3780):
     myDetect[i] = 0
-#myDetect[3780] = rho[0]
-# svm （判决）
 myHog = cv2.HOGDescriptor()
 myHog.setSVMDetector(myDetect)
-
-
 
 # load 
 imageSrc = cv2.imread('Test2.jpg',1)
