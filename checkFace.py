@@ -17,7 +17,10 @@ for (x,y,w,h) in faces:
     # 1 gray
     eyes = eye_xml.detectMultiScale(roi_face)
     print('eye=',len(eyes))
-    #for (e_x,e_y,e_w,e_h) in eyes:
+    '''
+    眼睛识别模型库似乎不成熟
+    for (e_x,e_y,e_w,e_h) in eyes:
         #cv2.rectangle(roi_color,(e_x,e_y),(e_x+e_w,e_y+e_h),(0,255,0),2)
+    '''
 cv2.imshow('abcd',img)
 cv2.waitKey(0)
